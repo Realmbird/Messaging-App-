@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './Form.css';
 
 function Signup() {
+    const navigate = useNavigate();
     const [error, setError] = useState(''); 
     const [formData, setFormData] = useState({
         name: '',
@@ -30,8 +31,18 @@ function Signup() {
             });
 
             if (response.ok) {
+                const headers = response.headers;
+                const authToken = headers.get('Authorization');
+                 // This is how you would retrieve the Authorization token
+                console.log(authToken)
+                // // Optionally, store the auth token in localStorage or sessionStorage
+                if (authToken) {
+                    localStorage.setItem('authToken', authToken);
+                }
                 const data = await response.json();
                 console.log('Success:', data);
+                
+                navigate("/app");
                 // You can redirect the user or update the UI as needed
                 setError('');
             } else {

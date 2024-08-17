@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import Signup from './user_pages/SignUp.jsx'
 import Login from './user_pages/Login.jsx'
+
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ChatWindow from './chat_pages/ChatWindow.jsx'
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,10 @@ const router = createBrowserRouter([
     path: "login",
     element: <Login />,
   },
+  {
+    path: "app",
+    element: <ChatWindow />,
+  }
 ]);
 
 

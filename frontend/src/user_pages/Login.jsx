@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './Form.css'
 function Login () {
+    const navigate = useNavigate();
     const [error, setError] = useState(''); 
     const [formData, setFormData] = useState({
         email: "",
@@ -25,8 +26,17 @@ function Login () {
               body: JSON.stringify({ user: formData }), // Format the body correctly
           });
           if (response.ok) {
+                const headers = response.headers;
+                const authToken = headers.get('Authorization'); // This is how you would retrieve the Authorization token
+                console.log(authToken)
+                // // Optionally, store the auth token in localStorage or sessionStorage
+                if (authToken) {
+                    localStorage.setItem('authToken', authToken);
+                }
+              console.log(response)
               const data = await response.json();
               console.log('Success:', data);
+              navigate("/app");
               // You can redirect the user or update the UI as needed
               setError('');
           } else {
@@ -69,7 +79,7 @@ function Login () {
           <button type="submit">Login In</button>
         </form>
         {error && <div className="error-message">{error}</div>} {/* Display error message if it exists */}
-        <Link className = "form-link" to="/sign_up">don't have an account? Sign up</Link>
+        <Link className = "form-link" to="/sign_up">Don't have an account? Sign up</Link>
       </div>
     )
 }
