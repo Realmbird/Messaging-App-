@@ -12,6 +12,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+:root {
+  --yellow: #EDAE49;
+  --red: #D1495B;
+  --cyan: #00798C;
+  --light-blue: #30638E;
+  --dark-blue: #003D5B;  
+}
 
 
 

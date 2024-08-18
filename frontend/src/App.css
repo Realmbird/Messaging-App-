@@ -1,8 +1,31 @@
-:root {
-  --yellow: #EDAE49;
-  --red: #D1495B;
-  --cyan: #00798C;
-  --light-blue: #30638E;
-  --dark-blue: #003D5B;  
-}
 
+
+.app {
+  width: 100vw;
+  height: 100vh;
+}
+.header {
+  width: 100vw;
+  background-color: var(--dark-blue);
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.header i {
+  font-size: 2rem;
+}
+.right {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1rem;
+  color: #fafafa;
+}
+.body {
+  padding: 3rem;
+  color: #fafafa;
+  font-size: 2rem;
+}
