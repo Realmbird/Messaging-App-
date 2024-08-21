@@ -3,6 +3,7 @@ import './ChatWindow.css'
 import { useEffect, useState } from 'react'
 import Login from '../user_pages/Login.jsx'
 import { useNavigate } from "react-router-dom";
+import MainScreen from './MainScreen.jsx';
 
 function ChatWindow () {
     const navigate = useNavigate();
@@ -55,7 +56,8 @@ function ChatWindow () {
     
     return(
         <div className='ChatWindow'>
-            <Sidebar> </Sidebar>
+            <Sidebar />
+            <MainScreen />
         </div> 
     )
 }
