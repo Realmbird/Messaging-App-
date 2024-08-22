@@ -16,4 +16,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
       }, status: :unprocessable_entity
     end
   end
+
+  def update 
+    user = current_user
+    if user.update(user_params)
+      render json: { 
+        status: { code: 200, message: 'Account updated successfully.' },
+        data: UserSerializer.new(user).serializable_hash[:data][:attributes]
+      }
+    else
+      render json: { 
+        status: { message: "Account couldn't be updated successfully. #{user.errors.full_messages.to_sentence}" },
+        status: :unprocessable_entity
+      }
+    end
+  end
 end

@@ -29,4 +29,10 @@ class Users::SessionsController < Devise::SessionsController
       }, status: :unauthorized
     end
   end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :name, :current_password)
+  end
 end

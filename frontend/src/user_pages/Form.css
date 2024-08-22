@@ -46,3 +46,8 @@ body {
     border-radius: 25px;
     border: 3px;
 }
+.logout {
+    width: 100%;
+    text-align: center;
+    background-color: red;
+}

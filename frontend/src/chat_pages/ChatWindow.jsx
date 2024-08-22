@@ -35,6 +35,7 @@ function ChatWindow () {
             }
         } catch (error) {
             console.error('Error:', error);
+            navigate("/login");
             // setError('An unexpected error occurred. Please try again later.');
             
         }

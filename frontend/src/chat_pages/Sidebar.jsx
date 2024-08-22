@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 function Sidebar () {
     return (
         <div className="sideBar">
@@ -20,8 +20,10 @@ function Sidebar () {
                 <img src="add_circle_outline_24dp_5F6368.svg" alt="Add" />
             </div>
           */}
-           
-            <img src="account_circle_24dp_5F6368.svg" alt="Account" />
+            <Link to = "/user">
+                <img className="account_link" src="account_circle_24dp_5F6368.svg" alt="Account" />
+            </Link>
+            
         </div>
     )
 }
