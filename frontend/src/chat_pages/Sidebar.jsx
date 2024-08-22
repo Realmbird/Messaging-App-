@@ -2,8 +2,12 @@ import { Link } from "react-router-dom";
 function Sidebar () {
     return (
         <div className="sideBar">
+            {/* discover */}
             <div className="top">
-                <img src="explore_24dp_5F6368.svg" alt="Navigation" />
+                <Link to = "discover">
+                    <img className = "account_link" src="/explore_24dp_5F6368.svg" alt="Navigation" />
+                </Link>
+                
                 {/* Adding Chatrooms/Servers */}
                 
             </div>
@@ -21,7 +25,7 @@ function Sidebar () {
             </div>
           */}
             <Link to = "/user">
-                <img className="account_link" src="account_circle_24dp_5F6368.svg" alt="Account" />
+                <img className="account_link" src="/account_circle_24dp_5F6368.svg" alt="Account" />
             </Link>
             
         </div>

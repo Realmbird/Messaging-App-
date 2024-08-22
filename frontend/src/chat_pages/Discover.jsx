@@ -1,23 +1,18 @@
-import Sidebar from './Sidebar.jsx'
+
 import './ChatWindow.css'
 import { useEffect, useState } from 'react'
-import Login from '../user_pages/Login.jsx'
-import { useNavigate, Outlet } from "react-router-dom";
-import MainScreen from './MainScreen.jsx';
-
-function ChatWindow () {
+import ChatInvitation from './ChatInvitation';
+import { useNavigate } from "react-router-dom";
+function Discover () {
     const navigate = useNavigate();
     // fetches current_user
     const [authToken, setAuthToken] = useState('')
 
     // uses auth tokent to get current User
-    const getCurrentUser = async () => {
+    const getChatrooms = async () => {
         try {
-            const response = await fetch('http://localhost:3001/current_user', {
+            const response = await fetch('http://localhost:3001/chatrooms', {
                 method: 'GET',
-                headers: {
-                    'Authorization': authToken,  // Sends Auth token in header
-                },
             });
             if (response.ok) {
                 console.log(response)
@@ -51,20 +46,20 @@ function ChatWindow () {
 
     useEffect(() => {
         if (authToken) {
-            getCurrentUser();
+            // 
+            console.log(authToken)
+            getChatrooms()
         }
     }, [authToken]);
     
-    return(
-        <div className='ChatWindow'>
-            <Sidebar />
-            
-            <div className='mainScreen'>
-                <Outlet />  
-            </div> 
-                
-          
-        </div> 
+    return (
+        <div className="discover">
+           <ChatInvitation name = "bird" />
+           <ChatInvitation name = "bird" />
+           <ChatInvitation name = "bird" />
+           <ChatInvitation name = "bird" />
+           
+        </div>
     )
 }
-export default ChatWindow
+export default Discover
