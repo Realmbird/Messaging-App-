@@ -73,25 +73,19 @@ function User() {
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
-        console.log("Submitting form with data:", formData); 
+        console.log("Updating user with data:", formData); 
         try {
             const response = await fetch('http://localhost:3001/signup', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',  // Ensure the request is sent as JSON
+                    'Authorization': authToken
                 },
                 body: JSON.stringify({ user: formData }), // Format the body correctly
             });
 
             if (response.ok) {
-                const headers = response.headers;
-                const authToken = headers.get('Authorization');
-                 // This is how you would retrieve the Authorization token
-                console.log(authToken)
-                // // Optionally, store the auth token in localStorage or sessionStorage
-                if (authToken) {
-                    localStorage.setItem('authToken', authToken);
-                }
+               
                 const data = await response.json();
                 console.log('Success:', data);
                 
@@ -100,7 +94,7 @@ function User() {
                 setError('');
             } else {
                 const errorData = await response.json();
-                console.error('Failed to sign up:', response.statusText);
+                console.error('Failed to update user up:', response.statusText);
                 // Set the error message from the server response
                 setError(errorData.status.message);
             }
