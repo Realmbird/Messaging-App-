@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_20_180506) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_23_220315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_20_180506) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_chatrooms_on_user_id"
+  end
+
+  create_table "chatrooms_users", force: :cascade do |t|
+    t.bigint "chatroom_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chatroom_id", "user_id"], name: "index_chatrooms_users_on_chatroom_id_and_user_id", unique: true
+    t.index ["chatroom_id"], name: "index_chatrooms_users_on_chatroom_id"
+    t.index ["user_id"], name: "index_chatrooms_users_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -48,6 +58,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_20_180506) do
   end
 
   add_foreign_key "chatrooms", "users"
+  add_foreign_key "chatrooms_users", "chatrooms"
+  add_foreign_key "chatrooms_users", "users"
   add_foreign_key "posts", "chatrooms"
   add_foreign_key "posts", "users"
 end

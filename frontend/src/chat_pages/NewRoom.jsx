@@ -100,7 +100,7 @@ function NewRoom ({rooms}) {
     
     return(
         <div className="chatrooms">
-                <div className="chatroom">
+                <div className="chatroom-icons">
                     <img src="/groups_24dp_5F6368.svg" alt="ChatRooms" />
                     <div>Chatrooms</div>
                 </div>

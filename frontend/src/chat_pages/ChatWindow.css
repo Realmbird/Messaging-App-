@@ -40,7 +40,7 @@
     color: var(--white);
     font-size: 0.5rem;
 }
-.chatroom {
+.chatroom-icons {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -112,7 +112,9 @@
     gap: 10px;
     padding: 10px;
     width: 100%;
+   align-items: center;
 }
+
 .chatrooms h1 {
     text-align: center;
 }
@@ -129,4 +131,8 @@
 
 .add-chatroom button:focus {
     outline: none; /* Remove the default focus outline */
+}
+.chatroom h3 {
+    text-align: start;
+    width: 80%;
 }
