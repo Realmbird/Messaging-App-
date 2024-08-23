@@ -60,7 +60,7 @@ function Discover () {
     return (
         <div className="discover">
             {chatrooms.map((chatroom) => (
-                <ChatInvitation key = {chatroom.id} name = {chatroom.name} />
+                <ChatInvitation key = {chatroom.id} index = {chatroom.id} name = {chatroom.name} />
             ))}
         </div>
     )

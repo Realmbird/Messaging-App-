@@ -11,6 +11,13 @@ class ChatroomsController < ApplicationController
       render json: { error: chatroom.errors.full_messages }, status: :unprocessable_entity
     end
   end
+  
+  def update
+    chatroom = Chatroom.find(params[:id])
+    current_user.chatrooms.push(chatroom)
+    render json: chatroom
+  end
+
   def current_rooms
     chatrooms = current_user.chatrooms
     render json: chatrooms

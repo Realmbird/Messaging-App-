@@ -122,7 +122,9 @@ function NewRoom ({rooms}) {
                 <ul>
                     {
                     rooms.map(room => (
-                        <li key={room.id}>{room.name}</li>
+                        <li key={room.id} id = {room.id} onClick={ () => {
+                            
+                        }}>{room.name}</li>
                     ))
                     }   
                 </ul>
