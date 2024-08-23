@@ -5,6 +5,7 @@ import Signup from './user_pages/SignUp.jsx'
 import Login from './user_pages/Login.jsx'
 import User from './user_pages/User.jsx'
 import Discover from './chat_pages/Discover.jsx'
+import Messages from './chat_pages/Messages.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ChatWindow from './chat_pages/ChatWindow.jsx'
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
     element: <ChatWindow />,
     children: [
       { path: "discover", element:  <Discover />},
+      { path: "messages", element:  <Messages />}
     ],
   }, {
     path: "user",

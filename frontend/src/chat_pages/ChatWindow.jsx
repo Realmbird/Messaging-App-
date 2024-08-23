@@ -3,7 +3,7 @@ import './ChatWindow.css'
 import { useEffect, useState } from 'react'
 import Login from '../user_pages/Login.jsx'
 import { useNavigate, Outlet } from "react-router-dom";
-import MainScreen from './MainScreen.jsx';
+
 
 function ChatWindow () {
     const navigate = useNavigate();

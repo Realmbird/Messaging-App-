@@ -5,16 +5,19 @@ import { useEffect, useState } from 'react'
 import { useNavigate, Outlet } from "react-router-dom";
 
 
-function NewRoom ({rooms}) {
+function Messages () {
     const navigate = useNavigate();
     // fetches current_user
 
     // const content = rooms.map((room) =>    <div key={room.id} id = {room.id}>      <h3>{room.name}</h3></div>);
     const [error, setError] = useState(''); 
     const [authToken, setAuthToken] = useState('')
+    const [chatroom, setChatroom] = useState('')
+    const [title, setTitle] = useState('')
     const [formData, setFormData] = useState({
-        name: '',
+        message: '',
     });
+    const [posts, setPosts] = useState([])
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -26,20 +29,20 @@ function NewRoom ({rooms}) {
         e.preventDefault(); // Prevent the default form submission behavior
         console.log("Submitting form with data:", formData); 
         try {
-            const response = await fetch('http://localhost:3001/chatrooms', {
+            const response = await fetch(`http://localhost:3001/posts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',  // Ensure the request is sent as JSON
                     'Authorization': authToken
                 },
-                body: JSON.stringify({ chatroom: formData }), // Format the body correctly
+                body: JSON.stringify({ chatroom: formData, id: chatroom}), // Format the body correctly
             });
 
             if (response.ok) {
                 const data = await response.json();
                 console.log('Success:', data);
                 
-                navigate("/app");
+                // navigate("/app");
                 // You can redirect the user or update the UI as needed
                 setError('');
             } else {
@@ -82,7 +85,8 @@ function NewRoom ({rooms}) {
             // setError('An unexpected error occurred. Please try again later.');
             
         }
-    } 
+    }
+    // auth token 
     useEffect(() => {
         const token = localStorage.getItem('authToken');
         if (token) {
@@ -91,6 +95,77 @@ function NewRoom ({rooms}) {
             navigate("/login");
         }
     }, []);
+    // localStorage.getItem localStorage.setItem("chatroom_id", room.id)
+    // chatroom 
+    useEffect(() => {
+        const chatroom_id = localStorage.getItem('chatroom_id');
+        if (chatroom_id) {
+            setChatroom(chatroom_id);
+        } else {
+            navigate("/app");
+        }
+    }, []);
+
+
+    const getPosts = async () => {
+      
+        try {
+            const response = await fetch(`http://localhost:3001/posts?chatroom_id=${chatroom}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',  // Ensure the request is sent as JSON
+                    'Authorization': authToken
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Success Fetched Posts:', data);
+                setPosts(data)
+                // navigate("/app");
+                // You can redirect the user or update the UI as needed
+                setError('');
+            } else {
+                const errorData = await response.json();
+                console.error('Failed to sign up:', response.statusText);
+                // Set the error message from the server response
+                setError(errorData.status.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+    const getTitle = async () => {
+        try {
+            const response = await fetch(`http://localhost:3001/chatrooms/${chatroom}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',  // Ensure the request is sent as JSON
+                    'Authorization': authToken
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Success Fetched Posts:', data);
+                setTitle(data.name)
+                // navigate("/app");
+                // You can redirect the user or update the UI as needed
+                setError('');
+            } else {
+                const errorData = await response.json();
+                console.error('Failed to sign up:', response.statusText);
+                // Set the error message from the server response
+                setError(errorData.status.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+    useEffect(() => {
+        getPosts()
+        getTitle()
+    }, [chatroom]);
 
     useEffect(() => {
         if (authToken) {
@@ -100,17 +175,25 @@ function NewRoom ({rooms}) {
     
     return(
         <div className="chatrooms">
+                <h1>{title}</h1>
                 <div className="chatroom">
-                    <img src="/groups_24dp_5F6368.svg" alt="ChatRooms" />
-                    <div>Chatrooms</div>
+                        {posts.map((post) => (
+                        <>
+                            <h3>{post.username}:</h3>
+                            <div className = "message" key={post.id}>
+                                {post.message}
+                            </div>
+                        </>
+                    ))}
                 </div>
                 
              
                 <form className="add-chatroom" onSubmit={handleSubmit}>
                     <input
+                        placeholder = "Type a Message: "
                         type="text"
-                        id="name"
-                        value={formData.name}
+                        id="message"
+                        value={formData.message}
                         onChange={handleChange}
                     />
                     <button type="submit">{
@@ -119,21 +202,11 @@ function NewRoom ({rooms}) {
                      {/* <img src="add_circle_outline_24dp_5F6368.svg" alt="Add" /> */}
 
                 </form>
-                <ul>
-                    {
-                    rooms.map(room => (
-                        <li key={room.id} id = {room.id} onClick={ () => {
-                            localStorage.setItem("chatroom_id", room.id)
-                            navigate('/app/messages')
-                            window.location.reload();
-                        }}>{room.name}</li>
-                    ))
-                    }   
-                </ul>
+                
                
-                    {error && <div className="error-message">{error}</div>} {/* Display error message if it exists */}
+                {error && <div className="error-message">{error}</div>} {/* Display error message if it exists */}
                 
         </div>
     )
 }
-export default NewRoom
+export default Messages

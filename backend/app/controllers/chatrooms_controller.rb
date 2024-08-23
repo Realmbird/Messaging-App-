@@ -26,6 +26,9 @@ class ChatroomsController < ApplicationController
   def destroy
     Chatroom.find(params[:id]).destroy
     head :no_content
+  end
+  def show
+    render json: Chatroom.find(params[:id])
   end  
   
   def chatroom_params

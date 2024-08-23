@@ -97,7 +97,25 @@
     width: 70%;
     padding: 0;
 }
-
+.message {
+    width: 80%;
+    background-color: var(--red);
+    border-radius: 25px;
+    border: 2px solid green;
+    padding: 1px;
+    text-align: center;
+    text-wrap: wrap;
+}
+.chatroom {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+}
+.chatrooms h1 {
+    text-align: center;
+}
 .add-chatroom button img {
     display: flex;
     width: 100%;
