@@ -7,17 +7,22 @@ function Discover () {
     const navigate = useNavigate();
     // fetches current_user
     const [authToken, setAuthToken] = useState('')
+    const [chatrooms, setChatrooms] = useState([])
 
     // uses auth tokent to get current User
     const getChatrooms = async () => {
         try {
             const response = await fetch('http://localhost:3001/chatrooms', {
                 method: 'GET',
+                headers: {
+                    'Authorization': authToken,  // Sends Auth token in header
+                },
             });
             if (response.ok) {
                 console.log(response)
                 const data = await response.json();
-                console.log('Success:', data);
+                setChatrooms(data)
+                console.log('Success Chatroom:', data);
                 // You can redirect the user or update the UI as needed
               
             } else {
@@ -30,7 +35,7 @@ function Discover () {
             }
         } catch (error) {
             console.error('Error:', error);
-            navigate("/login");
+            // navigate("/login");
             // setError('An unexpected error occurred. Please try again later.');
             
         }
@@ -40,7 +45,7 @@ function Discover () {
         if (token) {
             setAuthToken(token);
         } else {
-            navigate("/login");
+            // navigate("/login");
         }
     }, []);
 
@@ -54,11 +59,9 @@ function Discover () {
     
     return (
         <div className="discover">
-           <ChatInvitation name = "bird" />
-           <ChatInvitation name = "bird" />
-           <ChatInvitation name = "bird" />
-           <ChatInvitation name = "bird" />
-           
+            {chatrooms.map((chatroom) => (
+                <ChatInvitation key = {chatroom.id} name = {chatroom.name} />
+            ))}
         </div>
     )
 }

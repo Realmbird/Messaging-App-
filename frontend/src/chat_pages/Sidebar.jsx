@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-function Sidebar () {
+import NewRoom from "./NewRoom";
+// eslint-disable-next-line react/prop-types
+function Sidebar ({rooms}) {
+    
     return (
         <div className="sideBar">
             {/* discover */}
@@ -11,7 +14,7 @@ function Sidebar () {
                 {/* Adding Chatrooms/Servers */}
                 
             </div>
-          
+            <NewRoom rooms = {rooms}/>
             {/* <div className="chatrooms">
                 <div className="chatroom">
                     <img src="groups_24dp_5F6368.svg" alt="ChatRooms" />

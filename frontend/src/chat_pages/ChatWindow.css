@@ -37,6 +37,14 @@
 .chatrooms{
     display: flex;
     flex-direction: column;
+    color: var(--white);
+    font-size: 0.5rem;
+}
+.chatroom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
 }
 .discover {
     display: flex;
@@ -68,4 +76,39 @@
     font-size: small; 
     width: 80%;
     background-color: var(--red);
+}
+
+.add-chatroom {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+.add-chatroom button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-block;
+    width: 20px; /* Adjust width and height according to your image size */
+    height: 20px;
+}
+.add-chatroom input {
+    width: 70%;
+    padding: 0;
+}
+
+.add-chatroom button img {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+}
+
+.add-chatroom button:hover img {
+    opacity: 0.8; /* Optional: Add a hover effect */
+}
+
+.add-chatroom button:focus {
+    outline: none; /* Remove the default focus outline */
 }
